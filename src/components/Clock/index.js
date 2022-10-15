@@ -1,1 +1,1 @@
-export {Clock} from './Clock.jsx'
+export {NewClock} from './Clock.jsx'
