@@ -1,45 +1,41 @@
+import { Modal } from '../Modal/Modal';
 import { nanoid } from 'nanoid';
-import { Component } from 'react';
+import { useState } from 'react';
+// import { Component } from 'react';
 import { TranslateFilter } from './TranslateFilter/TranslateFilter';
 import { TranslateForm } from './TranslateForm/TranslateForm';
 import TranslateTable from './TranslateTable/TranslateTable';
 
-export class TranslateApp extends Component {
-  state = {
-    words: [],
-    filter: '',
-  };
-  handleAddWord = word => {
+export const TranslateApp = () => {
+  const [words, setWords] = useState([])
+  const [filter, setFilter] = useState('')
+  const [showModal, setShowModal] = useState(false)
+
+  const handleAddWord = word => {
     const wordForList = { id: nanoid(4), ...word };
-    this.setState(
-      prev => ({ words: [...prev.words, wordForList] }),
-      () => console.log(this.state)
-    );
+    setWords(prev => [...prev, wordForList])
+    onToggleModal()
   };
 
-  handleFilter = e => {
-    this.setState({ filter: e.target.value });
+  const handleFilter = e => {
+    setFilter(e.target.value)
   };
 
-  handleEditWords = editWord => {
-    this.setState(prev => ({
-      words: prev.words.map(word => {
-        if (word.id === editWord.id) {
-          word.engWord = editWord.engWord;
-          word.ukrWord = editWord.ukrWord;
+  const handleEditWords = editWord => {
+    setWords(prev => (prev.map(word => {
+      if (word.id === editWord.id) {
+        word.engWord = editWord.engWord;
+        word.ukrWord = editWord.ukrWord;
         }
         return word;
-      }),
-    }));
+    })))
+
   };
-  onDelete = id => {
-    this.setState(prev => ({
-      words: prev.words.filter(word => word.id !== id),
-    }));
+  const onDelete = id => {
+    setWords(prev => prev.filter(word => word.id !== id))
   };
 
-  onFilteredWords = () => {
-    const { words, filter } = this.state;
+  const onFilteredWords = () => {
     const normalizedFilter = filter.toLowerCase().trim();
     return words.filter(word => {
       return (
@@ -49,21 +45,28 @@ export class TranslateApp extends Component {
     });
   };
 
-  render() {
+  const onToggleModal = () => {
+    setShowModal(prev => !prev)
+  }
+
     return (
       <>
-        <h1>Hello</h1>
-        <TranslateForm onFormSubmit={this.handleAddWord} />
-        <TranslateFilter
-          value={this.state.filter}
-          onFilter={this.handleFilter}
-        />
+        <button type="button" onClick={onToggleModal}>
+          add new words
+        </button>
+        {showModal && (
+          <Modal closeModal={onToggleModal}>
+            <TranslateForm
+              onFormSubmit={handleAddWord}
+            />
+          </Modal>
+        )}
+        <TranslateFilter value={filter} onFilter={handleFilter} />
         <TranslateTable
-          words={this.onFilteredWords()}
-          onDelete={this.onDelete}
-          onEditWord={this.handleEditWords}
+          words={onFilteredWords()}
+          onDelete={onDelete}
+          onEditWord={handleEditWords}
         />
       </>
     );
   }
-}

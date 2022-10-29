@@ -1,6 +1,8 @@
-import { Button, TextField } from '@mui/material';
-import { Component } from 'react';
+import { Button} from '@mui/material';
+import { nanoid } from 'nanoid';
+import { useReducer } from 'react';
 import styled from 'styled-components';
+import { TranslateFormItem } from './TranslateFormItem';
 
 const Form = styled.form`
   display: flex;
@@ -8,45 +10,57 @@ const Form = styled.form`
   width: 400px;
 `;
 
-const initialState = { engWord: '', ukrWord: '' };
+const initialState = [{ id: nanoid(3), engWord: '', ukrWord: '' }];
 
-export class TranslateForm extends Component {
-  state = { ...initialState };
-
-  onChangeInput = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  onSubmit = e => {
-    e.preventDefault();
-    this.props.onFormSubmit(this.state);
-    this.setState(initialState);
-  };
-
-  render() {
-    const { engWord, ukrWord } = this.state;
-    return (
-      <Form onSubmit={this.onSubmit}>
-        <TextField
-          id="outlined-basic"
-          label="English word"
-          variant="outlined"
-          name="engWord"
-          onChange={this.onChangeInput}
-          value={engWord}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Ukrainian word"
-          variant="outlined"
-          name="ukrWord"
-          onChange={this.onChangeInput}
-          value={ukrWord}
-        />
-        <Button type="submit" variant="contained">
-          Contained
-        </Button>
-      </Form>
-    );
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'engWord':
+      return { ...state, [action.type]: action.payload };
+    case 'ukrWord':
+      return { ...state, [action.type]: action.payload };
+    case 'reset':
+      return initialState;
+    case 'addMore':
+      return [...state, action.payload];
+    default:
+      return state;
   }
-}
+};
+
+export const TranslateForm = ({ onFormSubmit }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const onChangeInput = event => {
+    dispatch({ type: event.target.name, payload: event.target.value });
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+    onFormSubmit(state);
+    dispatch({ type: 'reset' });
+  };
+
+  const handleAddMore = () => {
+    dispatch({
+      type: 'addMore',
+      payload: { id: nanoid(3), engWord: '', ukrWord: '' },
+    });
+  };
+  return (
+    <Form onSubmit={onSubmit}>
+      {state.map(word => (
+        <TranslateFormItem
+          key={word.id}
+          word={word}
+          onChangeInput={onChangeInput}
+        />
+      ))}
+      <Button type="submit" variant="contained">
+        add all words
+      </Button>
+      <Button type="button" variant="contained" onClick={handleAddMore}>
+        Add more
+      </Button>
+    </Form>
+  );
+};
