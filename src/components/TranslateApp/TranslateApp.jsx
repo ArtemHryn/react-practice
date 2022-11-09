@@ -1,5 +1,5 @@
 import { Modal } from '../Modal/Modal';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import { useState } from 'react';
 // import { Component } from 'react';
 import { TranslateFilter } from './TranslateFilter/TranslateFilter';
@@ -11,9 +11,11 @@ export const TranslateApp = () => {
   const [filter, setFilter] = useState('')
   const [showModal, setShowModal] = useState(false)
 
-  const handleAddWord = word => {
-    const wordForList = { id: nanoid(4), ...word };
-    setWords(prev => [...prev, wordForList])
+  const handleAddWord = words => {
+    // const wordForList = { id: nanoid(4), ...word };
+    // setWords(prev => [...prev, wordForList])
+    // const wordsForList = words.map(word => ({ id: nanoid(3), ...word }))
+    setWords(prev => [...prev, ...words]);
     onToggleModal()
   };
 

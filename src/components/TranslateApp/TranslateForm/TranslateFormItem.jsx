@@ -1,24 +1,28 @@
-import {TextField } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import {
+  FormItemLayout,
+  Input,
+  StyledButton,
+} from './TranslateFormItem.styled';
 
-export const TranslateFormItem = ({ onChangeInput, word }) => {
+export const TranslateFormItem = ({ index, register, remove }) => {
   return (
-    <>
-      <TextField
+    <FormItemLayout>
+      <Input
         id="outlined-basic"
         label="English word"
         variant="outlined"
-        name="engWord"
-        onChange={onChangeInput}
-        value={word.engWord}
+        {...register(`words.${index}.engWord`)}
       />
-      <TextField
+      <Input
         id="outlined-basic"
         label="Ukrainian word"
         variant="outlined"
-        name="ukrWord"
-        onChange={onChangeInput}
-        value={word.ukrWord}
+        {...register(`words.${index}.ukrWord`)}
       />
-    </>
+      <StyledButton variant="outlined" startIcon={<DeleteIcon />} onClick={() => remove(index)}>
+        Delete
+      </StyledButton>
+    </FormItemLayout>
   );
 };

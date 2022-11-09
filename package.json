@@ -1,8 +1,8 @@
 {
-  "name": "react-lessons",
+  "name": "react-practice",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ArtemHryn.github.io/react-styles/",
+  "homepage": "https://ArtemHryn.github.io/react-practice/",
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
@@ -19,6 +19,7 @@
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-hook-form": "^7.39.1",
     "react-icons": "^4.4.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
