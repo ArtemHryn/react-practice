@@ -6,8 +6,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { TranslateTableRow } from './TranslateTableRow';
+import { getWords } from 'redux/selectors';
+import { useSelector } from 'react-redux';
 
-export default function TranslateTable({ words, onDelete, onEditWord }) {
+
+
+export default function TranslateTable() {
+
+  const words = useSelector(getWords);
+
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -25,8 +33,6 @@ export default function TranslateTable({ words, onDelete, onEditWord }) {
               key={word.id}
               word={word}
               index={index}
-              onDelete={onDelete}
-              onEditWord={onEditWord}
             />
           ))}
         </TableBody>

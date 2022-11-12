@@ -23,16 +23,16 @@ export const TranslateApp = () => {
     setFilter(e.target.value)
   };
 
-  const handleEditWords = editWord => {
-    setWords(prev => (prev.map(word => {
-      if (word.id === editWord.id) {
-        word.engWord = editWord.engWord;
-        word.ukrWord = editWord.ukrWord;
-        }
-        return word;
-    })))
+  // const handleEditWords = editWord => {
+  //   setWords(prev => (prev.map(word => {
+  //     if (word.id === editWord.id) {
+  //       word.engWord = editWord.engWord;
+  //       word.ukrWord = editWord.ukrWord;
+  //       }
+  //       return word;
+  //   })))
 
-  };
+  // };
   const onDelete = id => {
     setWords(prev => prev.filter(word => word.id !== id))
   };
@@ -63,11 +63,11 @@ export const TranslateApp = () => {
             />
           </Modal>
         )}
-        <TranslateFilter value={filter} onFilter={handleFilter} />
+        <TranslateFilter  />
         <TranslateTable
           words={onFilteredWords()}
           onDelete={onDelete}
-          onEditWord={handleEditWords}
+          // onEditWord={handleEditWords}
         />
       </>
     );
