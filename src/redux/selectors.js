@@ -13,6 +13,10 @@ export const getWords = createSelector([words, filter], (words, filter) => {
   });
 });
 
+export const getWordsToLearn = createSelector([words], words => {
+  return words.filter(word => word.isLearn);
+})
+
 export const getFilter = createSelector(store, state => state.filter);
 
 

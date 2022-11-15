@@ -5,70 +5,27 @@ import { useState } from 'react';
 import { TranslateFilter } from './TranslateFilter/TranslateFilter';
 import { TranslateForm } from './TranslateForm/TranslateForm';
 import TranslateTable from './TranslateTable/TranslateTable';
+import { Button } from '@mui/material';
 
 export const TranslateApp = () => {
-  const [words, setWords] = useState([])
-  const [filter, setFilter] = useState('')
   const [showModal, setShowModal] = useState(false)
-
-  const handleAddWord = words => {
-    // const wordForList = { id: nanoid(4), ...word };
-    // setWords(prev => [...prev, wordForList])
-    // const wordsForList = words.map(word => ({ id: nanoid(3), ...word }))
-    setWords(prev => [...prev, ...words]);
-    onToggleModal()
-  };
-
-  const handleFilter = e => {
-    setFilter(e.target.value)
-  };
-
-  // const handleEditWords = editWord => {
-  //   setWords(prev => (prev.map(word => {
-  //     if (word.id === editWord.id) {
-  //       word.engWord = editWord.engWord;
-  //       word.ukrWord = editWord.ukrWord;
-  //       }
-  //       return word;
-  //   })))
-
-  // };
-  const onDelete = id => {
-    setWords(prev => prev.filter(word => word.id !== id))
-  };
-
-  const onFilteredWords = () => {
-    const normalizedFilter = filter.toLowerCase().trim();
-    return words.filter(word => {
-      return (
-        word.engWord.toLowerCase().includes(normalizedFilter) ||
-        word.ukrWord.toLowerCase().includes(normalizedFilter)
-      );
-    });
-  };
-
+  document.title = 'Add Words'
   const onToggleModal = () => {
     setShowModal(prev => !prev)
   }
 
     return (
       <>
-        <button type="button" onClick={onToggleModal}>
+        <Button type="button" onClick={onToggleModal}>
           add new words
-        </button>
+        </Button>
         {showModal && (
           <Modal closeModal={onToggleModal}>
-            <TranslateForm
-              onFormSubmit={handleAddWord}
-            />
+            <TranslateForm closeModal={onToggleModal} />
           </Modal>
         )}
-        <TranslateFilter  />
-        <TranslateTable
-          words={onFilteredWords()}
-          onDelete={onDelete}
-          // onEditWord={handleEditWords}
-        />
+        <TranslateFilter />
+        <TranslateTable />
       </>
     );
   }

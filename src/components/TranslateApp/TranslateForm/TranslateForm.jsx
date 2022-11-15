@@ -1,6 +1,5 @@
 import { Button } from '@mui/material';
 import { nanoid } from 'nanoid';
-// import { useReducer } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { addWords } from 'redux/wordSlice';
@@ -14,7 +13,7 @@ const Form = styled.form`
   width: 600px;
 `;
 
-export const TranslateForm = ({ onFormSubmit }) => {
+export const TranslateForm = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   const { register, control, handleSubmit } = useForm({
@@ -28,11 +27,9 @@ export const TranslateForm = ({ onFormSubmit }) => {
   });
 
   const onSubmit = ({ words }) => {
-    const wordsForList = words.map(word => ({ id: nanoid(3), ...word }));
-    onFormSubmit(wordsForList);
+    const wordsForList = words.map(word => ({ id: nanoid(3), isLearn: false, ...word }));
     dispatch(addWords(wordsForList));
-
-    console.log(words);
+    closeModal()
   };
 
   return (
@@ -41,7 +38,6 @@ export const TranslateForm = ({ onFormSubmit }) => {
         <TranslateFormItem
           key={field.id}
           index={index}
-          // onChangeInput={onChangeInput}
           register={register}
           remove={remove}
         />
