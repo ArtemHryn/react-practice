@@ -47,7 +47,12 @@ export const LearnWords = () => {
   }
 
   return (
-    <Box width="700px" backgroundColor="#b4edc2" m="0 auto" pt="40px">
+    <Box
+      background="linear-gradient(to right, #a8ff78, #78ffd6)"
+      m="0 auto"
+      pt="40px"
+      pb="40px"
+    >
       <Box display="flex" justifyContent="space-around">
         <Button variant="outlined" onClick={() => setTranslate('eng')}>
           Translate from Eng to Ukr
@@ -62,11 +67,12 @@ export const LearnWords = () => {
           flexDirection="column"
           alignItems="center"
           backgroundColor="#e1ede4"
-          mt="40px"
           borderRadius="10px"
           p="20px"
           justifyContent="space-between"
           height="40vh"
+          width="700px"
+          m="40px auto 0"
         >
           <h2>Some title</h2>
           <p>
@@ -90,11 +96,12 @@ export const LearnWords = () => {
           flexDirection="column"
           alignItems="center"
           backgroundColor="#e1ede4"
-          mt="40px"
+          m="40px auto 0"
           borderRadius="10px"
           p="20px"
           justifyContent="space-between"
           height="40vh"
+          width="700px"
         >
           <h2>Some title</h2>
           <p>

@@ -7,8 +7,8 @@ export const Layout = () => {
     return (
       <Box>
         <GlobalStyle />
-            <AppBar />
-            <Outlet/>
+        <AppBar />
+        <Outlet />
       </Box>
     );
 }
