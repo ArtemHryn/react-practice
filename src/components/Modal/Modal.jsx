@@ -4,7 +4,7 @@ import { ModalBackdrop, ModalWindow } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export const Modal = ({ closeModal, children }) => {
+export const Modal = ({ closeModal, children, isOpen }) => {
   useEffect(() => {
     const onCloseByEscape = e => {
       if (e.code === 'Escape') {
@@ -25,7 +25,8 @@ export const Modal = ({ closeModal, children }) => {
 
   return createPortal(
     <ModalBackdrop onClick={onBackdropClick}>
-      <ModalWindow>{children}</ModalWindow>
+
+        <ModalWindow>{children}</ModalWindow>
     </ModalBackdrop>,
     modalRoot
   );

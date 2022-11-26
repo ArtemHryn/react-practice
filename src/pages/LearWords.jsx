@@ -85,6 +85,8 @@ export const LearnWords = () => {
             placeholder="Write your answer here"
             onChange={onInputAnswer}
             value={answer}
+            autoComplete='off'
+
           />
           <Button variant="contained" onClick={onAnswer}>
             Answer

@@ -1,8 +1,8 @@
 import { Button } from '@mui/material';
-import { nanoid } from 'nanoid';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { addWords } from 'redux/wordSlice';
+import { addWordsAsync } from 'redux/operations';
+// import { addWords } from 'redux/wordSlice';
 import styled from 'styled-components';
 import { TranslateFormItem } from './TranslateFormItem';
 import { ButtonLayout } from './TranslateFormItem.styled';
@@ -27,9 +27,13 @@ export const TranslateForm = ({ closeModal }) => {
   });
 
   const onSubmit = ({ words }) => {
-    const wordsForList = words.map(word => ({ id: nanoid(3), isLearn: false, ...word }));
-    dispatch(addWords(wordsForList));
-    closeModal()
+    const wordsForList = words.map(word => ({
+      isLearn: false,
+      ...word,
+    }));
+
+    dispatch(addWordsAsync(wordsForList))
+    closeModal();
   };
 
   return (

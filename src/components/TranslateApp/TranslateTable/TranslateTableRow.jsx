@@ -2,8 +2,8 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { Button, Checkbox, TextField } from '@mui/material';
 import { useState } from 'react';
-import { deleteWord, editWords } from 'redux/wordSlice';
 import { useDispatch } from 'react-redux';
+import { deleteWord, updateWord } from 'redux/operations';
 
 export const TranslateTableRow = ({ word, index }) => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export const TranslateTableRow = ({ word, index }) => {
         isLearn: word.isLearn,
         id: word.id,
       };
-      dispatch(editWords(updateWords));
+      dispatch(updateWord(updateWords));
     }
   };
 
@@ -34,7 +34,7 @@ export const TranslateTableRow = ({ word, index }) => {
       isLearn: status,
       id: word.id,
     };
-    dispatch(editWords(updateWords));
+    dispatch(updateWord(updateWords));
   };
   const onChangeInput = event => {
     setState(prev => ({ ...prev, [event.target.name]: event.target.value }));
@@ -80,7 +80,12 @@ export const TranslateTableRow = ({ word, index }) => {
         </>
       )}
       <TableCell align="right">
-        <Button variant="outlined" onClick={onDelete} disabled={state.isEdit} sx={{marginRight:'10px'}}>
+        <Button
+          variant="outlined"
+          onClick={onDelete}
+          disabled={state.isEdit}
+          sx={{ marginRight: '10px' }}
+        >
           Delete
         </Button>
         <Button variant="outlined" onClick={onEdit}>
