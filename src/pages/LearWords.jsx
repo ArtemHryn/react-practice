@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getWordsToLearn } from 'redux/selectors';
 import { editWords } from 'redux/wordSlice';
 import { NoWords } from 'components/NoWords/NoWords';
+import { motion } from 'framer-motion';
+
 
 export const LearnWords = () => {
   const [translate, setTranslate] = useState('eng');
@@ -52,6 +54,10 @@ export const LearnWords = () => {
       m="0 auto"
       pt="40px"
       pb="40px"
+      as={motion.div}
+      initial={{ y: -400, opacity: 0 }}
+      animate={{ y: 0, opacity: 1, transition: { duration: 0.5 } }}
+      exit={{ opacity: 0, y: -400, transition: { duration: 0.5 } }}
     >
       <Box display="flex" justifyContent="space-around">
         <Button variant="outlined" onClick={() => setTranslate('eng')}>
@@ -85,8 +91,7 @@ export const LearnWords = () => {
             placeholder="Write your answer here"
             onChange={onInputAnswer}
             value={answer}
-            autoComplete='off'
-
+            autoComplete="off"
           />
           <Button variant="contained" onClick={onAnswer}>
             Answer

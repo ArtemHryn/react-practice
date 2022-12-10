@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchWords } from 'redux/operations';
 import { motion } from 'framer-motion';
+import { DownloadButton } from 'components/DownloadButton/DownloadButton';
 
 export const TranslateApp = () => {
   const [showModal, setShowModal] = useState(false);
@@ -26,25 +27,22 @@ export const TranslateApp = () => {
   };
 
   return (
-    <>
+    <motion.div
+      initial={{ y: -400, opacity: 0 }}
+      animate={{ y: 0, opacity: 1, transition: { duration: 0.5 } }}
+      exit={{ opacity: 0, y: -400, transition: { duration: 0.5 } }}
+    >
       <Button type="button" onClick={onToggleModal}>
         add new words
       </Button>
+      <DownloadButton/>
       {showModal && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          // variants={variants}
-          // animate={showModal ? 'open' : 'closed'}
-          animate={{ x: 0 }}
-          transition={{ type: 'spring', stiffness: 100 }}
-        >
-          <Modal closeModal={onToggleModal} isOpen={showModal}>
-            <TranslateForm closeModal={onToggleModal} />
-          </Modal>
-        </motion.div>
+        <Modal closeModal={onToggleModal} isOpen={showModal}>
+          <TranslateForm closeModal={onToggleModal} />
+        </Modal>
       )}
       <TranslateFilter />
       <TranslateTable />
-    </>
+    </motion.div>
   );
 };

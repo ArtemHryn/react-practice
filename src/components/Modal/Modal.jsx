@@ -25,8 +25,7 @@ export const Modal = ({ closeModal, children, isOpen }) => {
 
   return createPortal(
     <ModalBackdrop onClick={onBackdropClick}>
-
-        <ModalWindow>{children}</ModalWindow>
+      <ModalWindow>{children}</ModalWindow>
     </ModalBackdrop>,
     modalRoot
   );

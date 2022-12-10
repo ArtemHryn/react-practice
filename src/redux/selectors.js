@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 const store = state => state;
-const words = state => state.words;
+export const words = state => state.words;
 const filter = state => state.filter;
 export const getWords = createSelector([words, filter], (words, filter) => {
   const normalizedFilter = filter.toLowerCase().trim();
